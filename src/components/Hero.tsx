@@ -1,0 +1,117 @@
+"use client";
+
+import React from 'react';
+import { motion, Variants } from 'framer-motion'; // Ajout de Variants ici
+import { ArrowRight, Sparkles } from 'lucide-react';
+
+const Hero = () => {
+  // Typage explicite des variantes pour satisfaire le compilateur TypeScript
+  const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
+    }
+  };
+
+  const containerSign: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+    }
+  };
+
+  return (
+    <section className="relative min-h-screen w-full bg-[#fcfbfa] flex items-center overflow-hidden pt-24 md:pt-16">
+      
+      {/* Arrière-plan : Lignes de structure */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
+        <div className="absolute top-0 left-1/3 w-[1px] h-full bg-neutral-200/60" />
+        <div className="absolute top-0 left-2/3 w-[1px] h-full bg-neutral-200/60" />
+      </div>
+
+      <div className="max-w-7xl mx-auto w-full px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10 py-12">
+        
+        {/* --- BLOC GAUCHE --- */}
+        <motion.div 
+          className="lg:col-span-7 space-y-8 flex flex-col justify-center text-left"
+          variants={containerSign}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div 
+            variants={fadeInUp}
+            className="inline-flex items-center gap-2 px-3 py-1 bg-[#fef2f2] text-[#e21e26] rounded-full w-fit border border-[#e21e26]/10"
+          >
+            <Sparkles size={12} />
+            <span className="text-[10px] uppercase tracking-[0.2em] font-medium">Édition Limitée</span>
+          </motion.div>
+
+          <motion.h1 
+            variants={fadeInUp}
+            className="text-4xl md:text-6xl xl:text-7xl font-light text-neutral-900 tracking-tight leading-[1.1] font-serif"
+          >
+            L'empreinte d'une <br />
+            <span className="italic font-normal text-neutral-800">émotion</span> invisible.
+          </motion.h1>
+
+          <motion.p 
+            variants={fadeInUp}
+            className="text-sm md:text-base text-neutral-500 leading-relaxed max-w-xl font-light"
+          >
+            Plus qu’un sillage, une architecture sensorielle. Maison Aura façonne des extraits de parfum rares où les essences précieuses entrent en résonance avec votre histoire.
+          </motion.p>
+
+          <motion.div 
+            variants={fadeInUp}
+            className="flex flex-wrap items-center gap-4 pt-4"
+          >
+            <a 
+              href="#collections"
+              className="group relative px-8 py-4 bg-neutral-950 text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] overflow-hidden flex items-center gap-3 shadow-lg hover:bg-[#e21e26] transition-colors duration-500"
+            >
+              <span>Découvrir l'univers</span>
+              <ArrowRight size={14} className="transform group-hover:translate-x-1 transition-transform duration-300" />
+            </a>
+
+            <a 
+              href="#diagnostic"
+              className="px-8 py-4 bg-transparent border border-neutral-200 text-neutral-800 rounded-full text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#fef2f2] hover:text-[#e21e26] hover:border-[#e21e26]/30 transition-all duration-300 text-center"
+            >
+              Diagnostic olfactif
+            </a>
+          </motion.div>
+        </motion.div>
+
+        {/* --- BLOC DROITE (Transition inline fixée avec "as const") --- */}
+        <motion.div 
+          className="lg:col-span-5 relative flex justify-center items-center lg:justify-end mt-8 lg:mt-0"
+          initial={{ opacity: 0, scale: 0.95, x: 20 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] as const, delay: 0.4 }}
+        >
+          <div className="relative w-[290px] h-[400px] md:w-[360px] md:h-[480px] bg-neutral-100 rounded-[60px_20px_60px_20px] overflow-hidden shadow-2xl z-10 border border-neutral-200/30">
+            <img 
+              src="/parfume/black_per.jpg" 
+              alt="Flacon d'exception Maison Aura" 
+              className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000"
+            />
+            <div className="absolute inset-0 bg-neutral-950/5 pointer-events-none" />
+          </div>
+
+          <div className="absolute bottom-6 right-6 lg:-bottom-6 lg:-right-6 w-[290px] h-[400px] md:w-[360px] md:h-[480px] border-2 border-[#e21e26]/20 rounded-[60px_20px_60px_20px] z-0 pointer-events-none transition-colors duration-500 hover:border-[#e21e26]/40" />
+
+          <div className="absolute left-0 bottom-12 lg:-left-12 lg:bottom-24 z-20 bg-white/70 backdrop-blur-md border border-neutral-100 py-3 px-4 rounded-xl shadow-md hidden sm:block">
+            <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-400 font-medium">Note de tête</p>
+            <p className="text-xs font-serif text-neutral-800">Bergamote & Écorce d'Ambre</p>
+          </div>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
