@@ -19,7 +19,7 @@ const products: Product[] = [
     name: "Ambre Impérial",
     family: "Boisé Épicé",
     price: "145,00 €",
-    image: "/parfume/black_per.jpg", // Réutilisation ou remplace par tes assets
+    image: "/parfume/black_per.jpg",
     tag: "Best-seller"
   },
   {
@@ -62,14 +62,10 @@ const products: Product[] = [
 
 const ProductGrid = () => {
   
-  // Fonction pour déclencher l'ouverture du panier (Cart Drawer) codé dans le Header
+  // Fonction pour déclencher l'ouverture du panier
   const handleAddToCart = (productId: string) => {
-    // Si tu utilises Zustand/Context plus tard, tu mettras l'action ici.
-    // Pour l'instant, on simule l'ouverture ou on envoie un événement personnalisé si ton Header écoute.
     const event = new CustomEvent('open-cart', { detail: { productId } });
     window.dispatchEvent(event);
-    
-    // Optionnel : un petit retour console pour le dev
     console.log(`Produit ${productId} ajouté au panier.`);
   };
 
@@ -90,7 +86,7 @@ const ProductGrid = () => {
           </p>
         </div>
 
-        {/* --- GRILLE DE PRODUITS (3 colonnes sur desktop, 4 si tu ajoutes des éléments) --- */}
+        {/* --- GRILLE DE PRODUITS --- */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
           {products.map((product) => (
             <motion.div 
@@ -104,44 +100,44 @@ const ProductGrid = () => {
               {/* Zone Image Interactive */}
               <div className="relative aspect-[3/4] w-full bg-neutral-50 rounded-2xl overflow-hidden border border-neutral-200/40 mb-4 flex items-center justify-center">
                 
-                {/* Badge contextuel ultra discret */}
+                {/* Badge contextuel */}
                 {product.tag && (
                   <span className="absolute top-4 left-4 z-20 px-2.5 py-1 bg-white/90 backdrop-blur-xs text-neutral-800 text-[9px] font-bold uppercase tracking-wider rounded-md border border-neutral-100 shadow-xs">
                     {product.tag}
                   </span>
                 )}
 
-                {/* Image du parfum avec zoom progressif au survol */}
+                {/* Image du parfum avec zoom progressif */}
                 <img 
                   src={product.image} 
                   alt={product.name}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000 ease-[0.16, 1, 0.3, 1]"
+                  className="w-full h-full object-cover transform md:group-hover:scale-105 transition-transform duration-1000 ease-[0.16, 1, 0.3, 1]"
                 />
 
-                {/* Overlay d'action au survol (Propagations de couleurs douces) */}
-                <div className="absolute inset-0 bg-neutral-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 flex flex-col justify-end p-4 gap-2">
+                {/* INTERFACE POUR DESKTOP (PC) : Uniquement visible au hover */}
+                <div className="absolute inset-0 bg-neutral-950/20 opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 z-10 flex flex-col justify-end p-4 gap-2 hidden md:flex pointer-events-none md:group-hover:pointer-events-auto">
                   
-                  {/* Bouton Ajouter Rapide */}
+                  {/* Bouton Ajouter Rapide PC */}
                   <button 
                     onClick={() => handleAddToCart(product.id)}
-                    className="w-full bg-white text-neutral-950 hover:bg-[#e21e26] hover:text-white py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
+                    className="w-full bg-white text-neutral-950 hover:bg-[#e21e26] hover:text-white py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all duration-300 transform translate-y-2 md:group-hover:translate-y-0"
                   >
                     <ShoppingBag size={14} />
                     Ajouter au panier
                   </button>
 
-                  {/* Bouton Aperçu (Plus secondaire) */}
-                  <button className="w-full bg-white/20 backdrop-blur-md text-white hover:bg-white/30 py-3 rounded-xl text-[11px] font-medium uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 delay-75">
+                  {/* Bouton Aperçu PC */}
+                  <button className="w-full bg-white/20 backdrop-blur-md text-white hover:bg-white/30 py-3 rounded-xl text-[11px] font-medium uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 transform translate-y-2 md:group-hover:translate-y-0 delay-75">
                     <Eye size={14} />
                     Aperçu rapide
                   </button>
                 </div>
               </div>
 
-              {/* --- DETAILS DU PRODUIT (Minimaliste, Typographie Soignée) --- */}
-              <div className="space-y-1 px-1">
+              {/* --- DETAILS DU PRODUIT --- */}
+              <div className="space-y-1 px-1 mb-4 flex-1">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-xs font-bold tracking-[0.1em] uppercase text-neutral-800 font-sans group-hover:text-[#e21e26] transition-colors duration-300">
+                  <h3 className="text-xs font-bold tracking-[0.1em] uppercase text-neutral-800 font-sans md:group-hover:text-[#e21e26] transition-colors duration-300">
                     {product.name}
                   </h3>
                   <span className="text-xs font-medium text-neutral-900 shrink-0">
@@ -151,6 +147,22 @@ const ProductGrid = () => {
                 <p className="text-[11px] text-neutral-400 font-light italic">
                   {product.family}
                 </p>
+              </div>
+
+              {/* INTERFACE POUR MOBILE : Toujours présente et accessible sous les détails */}
+              <div className="flex flex-col gap-2 mt-1 md:hidden w-full px-1">
+                <button 
+                  onClick={() => handleAddToCart(product.id)}
+                  className="w-full bg-neutral-950 text-white active:bg-[#e21e26] py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors duration-200"
+                >
+                  <ShoppingBag size={14} />
+                  Ajouter au panier
+                </button>
+                
+                <button className="w-full bg-transparent border border-neutral-200 text-neutral-800 active:bg-neutral-50 py-2.5 rounded-xl text-[11px] font-medium uppercase tracking-wider flex items-center justify-center gap-2 transition-colors duration-200">
+                  <Eye size={14} />
+                  Aperçu rapide
+                </button>
               </div>
 
             </motion.div>
