@@ -60,7 +60,6 @@ const DiagnosticQuiz = () => {
 
   const result = recommendations[answers[1]] || recommendations["boise"];
 
-  // Courbes Bézier de luxe pour des transitions fluides et dramatiques
   const stageVariants: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } },
@@ -89,7 +88,7 @@ const DiagnosticQuiz = () => {
       <div className="max-w-4xl mx-auto relative z-10">
         <AnimatePresence mode="wait">
           
-          {/* --- ÉTAPE 0 : INTRODUCTION DRAMATIQUE --- */}
+          {/* --- ÉTAPE 0 : INTRODUCTION ÉPURÉE ET HAUTE COUTURE --- */}
           {currentStep === 0 && (
             <motion.div
               key="intro"
@@ -99,9 +98,12 @@ const DiagnosticQuiz = () => {
               exit="exit"
               className="text-center space-y-12 max-w-2xl mx-auto py-12"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#fef2f2] text-[#e21e26] rounded-full border border-[#e21e26]/10 shadow-xs">
-                <Sparkles size={12} className="animate-pulse" />
-                <span className="text-[10px] uppercase tracking-[0.25em] font-semibold">Atelier de Création Olfactive</span>
+              {/* Titre de section réinventé : Identité de marque affirmée et intemporelle */}
+              <div className="flex items-center justify-center gap-3 text-neutral-400 select-none">
+                <Sparkles size={11} className="text-[#e21e26] animate-pulse shrink-0" />
+                <span className="text-[10px] uppercase tracking-[0.35em] font-medium font-sans text-neutral-500">
+                  Le Diagnostic Olfactif Aura
+                </span>
               </div>
               
               <div className="space-y-4">
@@ -124,7 +126,7 @@ const DiagnosticQuiz = () => {
             </motion.div>
           )}
 
-          {/* --- ÉTAPES DYNAMIQUES : QUESTIONS EN GRILLE ASYMÉTRIQUE --- */}
+          {/* --- ÉTAPES DYNAMIQUES --- */}
           {currentStep > 0 && currentStep <= questions.length && (() => {
             const currentQuestion = questions[currentStep - 1];
             return (
@@ -136,7 +138,6 @@ const DiagnosticQuiz = () => {
                 exit="exit"
                 className="space-y-12"
               >
-                {/* Header d'étape épuré */}
                 <div className="flex items-center justify-between border-b border-neutral-200/60 pb-6">
                   <button 
                     onClick={() => setCurrentStep(prev => prev - 1)}
@@ -149,7 +150,6 @@ const DiagnosticQuiz = () => {
                   </div>
                 </div>
 
-                {/* Titres de la Question */}
                 <div className="space-y-2 max-w-2xl">
                   <h3 className="text-2xl md:text-3xl font-light text-neutral-900 font-serif tracking-tight">
                     {currentQuestion.title}
@@ -157,7 +157,6 @@ const DiagnosticQuiz = () => {
                   <p className="text-xs text-neutral-400 font-light tracking-wide">{currentQuestion.subtitle}</p>
                 </div>
 
-                {/* Grille d'options stylisée à 2 colonnes */}
                 <motion.div 
                   className="grid grid-cols-1 md:grid-cols-2 gap-5"
                   variants={gridContainerVariants}
@@ -175,7 +174,6 @@ const DiagnosticQuiz = () => {
                             : 'border-neutral-200 bg-white/40 hover:border-neutral-400 hover:bg-white'
                         }`}
                       >
-                        {/* Ligne d'accentuation douce au survol/sélection */}
                         <div className={`absolute top-0 left-0 w-[3px] h-full transition-transform duration-500 origin-bottom ${
                           isSelected ? 'bg-[#e21e26] scale-y-100' : 'bg-neutral-300 scale-y-0 group-hover:scale-y-100'
                         }`} />
@@ -202,7 +200,7 @@ const DiagnosticQuiz = () => {
             );
           })()}
 
-          {/* --- ÉTAPE FINALE : REVELATION DU FLACON D'EXCEPTION --- */}
+          {/* --- ÉTAPE FINALE --- */}
           {currentStep > questions.length && (
             <motion.div
               key="result"
@@ -212,7 +210,6 @@ const DiagnosticQuiz = () => {
               exit="exit"
               className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-6"
             >
-              {/* Colonne gauche : Le Flacon majestueux révélé (Asymétrique) */}
               <div className="lg:col-span-5 relative flex justify-center">
                 <div className="relative w-[240px] h-[320px] bg-neutral-100 rounded-[40px_15px_40px_15px] overflow-hidden border border-neutral-200/40 shadow-xl">
                   <img 
@@ -222,11 +219,9 @@ const DiagnosticQuiz = () => {
                   />
                   <div className="absolute inset-0 bg-neutral-950/5" />
                 </div>
-                {/* Cadre de rappel de marque doux arrière */}
                 <div className="absolute bottom-4 right-4 w-[240px] h-[320px] border border-[#e21e26]/30 rounded-[40px_15px_40px_15px] pointer-events-none -z-10" />
               </div>
 
-              {/* Colonne droite : Informations d'orfèvre */}
               <div className="lg:col-span-7 space-y-8 text-left">
                 <div className="space-y-3">
                   <span className="text-[10px] uppercase tracking-[0.3em] text-[#e21e26] font-semibold block">Votre Accord Parfait</span>
@@ -241,14 +236,12 @@ const DiagnosticQuiz = () => {
                     {result.desc}
                   </p>
                   
-                  {/* Pyramide Olfactive abrégée */}
                   <div className="bg-white/50 border border-neutral-100 p-4 rounded-xl space-y-1 w-fit">
                     <span className="text-[9px] uppercase tracking-wider text-neutral-400 font-medium block">Notes clés décelées</span>
                     <span className="text-xs text-neutral-800 font-serif italic">{result.notes}</span>
                   </div>
                 </div>
 
-                {/* Actions Finales Intégrées */}
                 <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full">
                   <a
                     href="#collections"
