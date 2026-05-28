@@ -14,7 +14,7 @@ const specialEditions = [
   {
     id: 2,
     text: "Collection Privée : Nuit Nomade - Extrait Absolu de Cuir",
-    image: "/be-bright/suitespace.jpeg"
+    image: "/parfume/black_per.jpg"
   },
   {
     id: 3,
