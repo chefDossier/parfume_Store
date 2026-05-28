@@ -1,11 +1,39 @@
 "use client";
 
-import React from 'react';
-import { motion, Variants } from 'framer-motion'; // Ajout de Variants ici
+import React, { useState, useEffect } from 'react';
+import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
+// Contenu du bandeau dynamique (Éditions Spéciales)
+const specialEditions = [
+  {
+    id: 1,
+    text: "Édition Spéciale : Ambre Impérial - Flacon d'Or Numéroté",
+    image: "/parfume/black_per.jpg" // Utilise tes visuels de parfums
+  },
+  {
+    id: 2,
+    text: "Collection Privée : Nuit Nomade - Extrait Absolu de Cuir",
+    image: "/be-bright/suitespace.jpeg"
+  },
+  {
+    id: 3,
+    text: "Série Rare : Sillage d'Or - Infusion Exclusive 2026",
+    image: "/parfume/black_per.jpg"
+  }
+];
+
 const Hero = () => {
-  // Typage explicite des variantes pour satisfaire le compilateur TypeScript
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Gestion de la rotation automatique toutes les 4 secondes
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % specialEditions.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
   const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
@@ -41,12 +69,47 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
         >
+          {/* --- NOUVEAU BANDEAU ÉDITION SPÉCIALE DYNAMIQUE --- */}
           <motion.div 
             variants={fadeInUp}
-            className="inline-flex items-center gap-2 px-3 py-1 bg-[#fef2f2] text-[#e21e26] rounded-full w-fit border border-[#e21e26]/10"
+            className="relative w-full max-w-md h-14 rounded-full overflow-hidden border border-neutral-200/30 shadow-md flex items-center px-6"
           >
-            <Sparkles size={12} />
-            <span className="text-[10px] uppercase tracking-[0.2em] font-medium">Édition Limitée</span>
+            {/* Carrousel d'images en arrière-plan */}
+            <div className="absolute inset-0 z-0">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={`bg-${currentIndex}`}
+                  src={specialEditions[currentIndex].image}
+                  alt="Atmosphère Parfum"
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                  className="w-full h-full object-cover filter blur-[1px]"
+                />
+              </AnimatePresence>
+              {/* Ombre/Overlay sombre pour maximiser le contraste et faire ressortir le texte */}
+              <div className="absolute inset-0 bg-neutral-950/45 mix-blend-multiply" />
+            </div>
+
+            {/* Contenu textuel et icône au-dessus de l'arrière-plan */}
+            <div className="relative z-10 flex items-center gap-3 w-full text-white select-none">
+              <Sparkles size={13} className="text-[#e21e26] shrink-0 animate-pulse" />
+              <div className="overflow-hidden w-full h-4 relative">
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={`text-${currentIndex}`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute inset-0 text-[10px] md:text-[11px] uppercase tracking-[0.18em] font-semibold truncate text-neutral-100"
+                  >
+                    {specialEditions[currentIndex].text}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+            </div>
           </motion.div>
 
           <motion.h1 
@@ -85,12 +148,12 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* --- BLOC DROITE (Transition inline fixée avec "as const") --- */}
+        {/* --- BLOC DROITE --- */}
         <motion.div 
           className="lg:col-span-5 relative flex justify-center items-center lg:justify-end mt-8 lg:mt-0"
           initial={{ opacity: 0, scale: 0.95, x: 20 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] as const, delay: 0.4 }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
         >
           <div className="relative w-[290px] h-[400px] md:w-[360px] md:h-[480px] bg-neutral-100 rounded-[60px_20px_60px_20px] overflow-hidden shadow-2xl z-10 border border-neutral-200/30">
             <img 
