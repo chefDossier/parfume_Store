@@ -72,7 +72,7 @@ const Hero = () => {
           {/* --- NOUVEAU BANDEAU ÉDITION SPÉCIALE DYNAMIQUE --- */}
           <motion.div 
             variants={fadeInUp}
-            className="relative w-full max-w-md h-14 rounded-full overflow-hidden border border-neutral-200/30 shadow-md flex items-center px-6"
+            className="relative w-full max-w-md h-20 rounded-full overflow-hidden border border-neutral-200/30 shadow-md flex items-center px-6"
           >
             {/* Carrousel d'images en arrière-plan */}
             <div className="absolute inset-0 z-0">
