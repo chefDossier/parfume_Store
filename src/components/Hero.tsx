@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Sparkles, ShoppingBag, Eye } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 
 // Contenu du bandeau dynamique (Éditions Spéciales)
 const specialEditions = [
   {
     id: 1,
     text: "Édition Spéciale : Ambre Impérial - Flacon d'Or Numéroté",
-    image: "/parfume/black_per.jpg"
+    image: "/parfume/black_per.jpg" // Utilise tes visuels de parfums
   },
   {
     id: 2,
@@ -69,11 +69,12 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
         >
-          {/* --- BANDEAU ÉDITION SPÉCIALE DYNAMIQUE --- */}
+          {/* --- NOUVEAU BANDEAU ÉDITION SPÉCIALE DYNAMIQUE --- */}
           <motion.div 
             variants={fadeInUp}
             className="relative w-full max-w-md h-20 rounded-full overflow-hidden border border-neutral-200/30 shadow-md flex items-center px-6"
           >
+            {/* Carrousel d'images en arrière-plan */}
             <div className="absolute inset-0 z-0">
               <AnimatePresence mode="wait">
                 <motion.img
@@ -87,9 +88,11 @@ const Hero = () => {
                   className="w-full h-full object-cover filter blur-[1px]"
                 />
               </AnimatePresence>
+              {/* Ombre/Overlay sombre pour maximiser le contraste et faire ressortir le texte */}
               <div className="absolute inset-0 bg-neutral-950/45 mix-blend-multiply" />
             </div>
 
+            {/* Contenu textuel et icône au-dessus de l'arrière-plan */}
             <div className="relative z-10 flex items-center gap-3 w-full text-white select-none">
               <Sparkles size={13} className="text-[#e21e26] shrink-0 animate-pulse" />
               <div className="overflow-hidden w-full h-4 relative">
@@ -124,14 +127,13 @@ const Hero = () => {
             Plus qu’un sillage, une architecture sensorielle. Maison Aura façonne des extraits de parfum rares où les essences précieuses entrent en résonance avec votre histoire.
           </motion.p>
 
-          {/* --- ACTIONS CLIENTS AJUSTÉES --- */}
           <motion.div 
             variants={fadeInUp}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4"
+            className="flex flex-wrap items-center gap-4 pt-4"
           >
             <a 
               href="#collections"
-              className="group relative px-8 py-4 bg-neutral-950 text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] overflow-hidden flex items-center justify-center gap-3 shadow-lg hover:bg-[#e21e26] transition-colors duration-500 text-center"
+              className="group relative px-8 py-4 bg-neutral-950 text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] overflow-hidden flex items-center gap-3 shadow-lg hover:bg-[#e21e26] transition-colors duration-500"
             >
               <span>Découvrir l'univers</span>
               <ArrowRight size={14} className="transform group-hover:translate-x-1 transition-transform duration-300" />
@@ -147,54 +149,25 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* --- BLOC DROITE : ZONE PRODUIT AVEC BOUTONS FIXES SUR MOBILE / HOVER SUR PC --- */}
+        {/* --- BLOC DROITE --- */}
         <motion.div 
-          className="lg:col-span-5 relative flex flex-col justify-center items-center lg:items-end mt-8 lg:mt-0"
+          className="lg:col-span-5 relative flex justify-center items-center lg:justify-end mt-8 lg:mt-0"
           initial={{ opacity: 0, scale: 0.95, x: 20 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
         >
-          {/* Groupe conteneur de l'image (Gestion de l'effet hover PC uniquement) */}
-          <div className="group/card relative w-[290px] h-[400px] md:w-[360px] md:h-[480px] bg-neutral-100 rounded-[60px_20px_60px_20px] overflow-hidden shadow-2xl z-10 border border-neutral-200/30">
+          <div className="relative w-[290px] h-[400px] md:w-[360px] md:h-[480px] bg-neutral-100 rounded-[60px_20px_60px_20px] overflow-hidden shadow-2xl z-10 border border-neutral-200/30">
             <img 
               src="/parfume/black_per.jpg" 
               alt="Flacon d'exception Maison Aura" 
-              className="w-full h-full object-cover transform md:group-hover/card:scale-105 transition-transform duration-1000"
+              className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000"
             />
             <div className="absolute inset-0 bg-neutral-950/5 pointer-events-none" />
-
-            {/* Actions Rapides E-Commerce : Uniquement au survol sur PC, cachées nativement sur Mobile dans ce conteneur */}
-            <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-neutral-950/80 via-neutral-950/40 to-transparent items-center justify-center gap-3 opacity-0 translate-y-4 pointer-events-none md:group-hover/card:opacity-100 md:group-hover/card:translate-y-0 md:group-hover/card:pointer-events-auto transition-all duration-500 hidden md:flex">
-              <button 
-                aria-label="Aperçu rapide"
-                className="p-3 bg-white/20 backdrop-blur-md border border-white/20 text-white rounded-full hover:bg-white hover:text-neutral-950 transition-colors duration-300"
-              >
-                <Eye size={16} />
-              </button>
-              <button className="flex-1 py-3 px-4 bg-white text-neutral-950 text-[10px] uppercase tracking-widest font-bold rounded-full flex items-center justify-center gap-2 hover:bg-[#e21e26] hover:text-white transition-colors duration-300">
-                <ShoppingBag size={14} />
-                <span>Ajouter au panier</span>
-              </button>
-            </div>
           </div>
 
-          {/* Version Mobile Dédiée : Boutons d'achat visibles en permanence sous la carte pour éviter la perte de conversion */}
-          <div className="w-[290px] mt-4 flex items-center gap-2 md:hidden z-20">
-            <button className="flex-1 py-3 px-4 bg-neutral-950 text-white text-[10px] uppercase tracking-widest font-bold rounded-xl flex items-center justify-center gap-2 active:bg-[#e21e26] transition-colors">
-              <ShoppingBag size={14} />
-              <span>Ajouter</span>
-            </button>
-            <button 
-              aria-label="Aperçu rapide"
-              className="p-3 bg-white border border-neutral-200 text-neutral-800 rounded-xl active:bg-neutral-50"
-            >
-              <Eye size={16} />
-            </button>
-          </div>
+          <div className="absolute bottom-6 right-6 lg:-bottom-6 lg:-right-6 w-[290px] h-[400px] md:w-[360px] md:h-[480px] border-2 border-[#e21e26]/20 rounded-[60px_20px_60px_20px] z-0 pointer-events-none transition-colors duration-500 hover:border-[#e21e26]/40" />
 
-          <div className="absolute bottom-16 right-6 lg:-bottom-6 lg:-right-6 w-[290px] h-[400px] md:w-[360px] md:h-[480px] border-2 border-[#e21e26]/20 rounded-[60px_20px_60px_20px] z-0 pointer-events-none transition-colors duration-500 md:group-hover/card:border-[#e21e26]/40" />
-
-          <div className="absolute left-0 bottom-24 lg:-left-12 lg:bottom-24 z-20 bg-white/70 backdrop-blur-md border border-neutral-100 py-3 px-4 rounded-xl shadow-md hidden sm:block">
+          <div className="absolute left-0 bottom-12 lg:-left-12 lg:bottom-24 z-20 bg-white/70 backdrop-blur-md border border-neutral-100 py-3 px-4 rounded-xl shadow-md hidden sm:block">
             <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-400 font-medium">Note de tête</p>
             <p className="text-xs font-serif text-neutral-800">Bergamote & Écorce d'Ambre</p>
           </div>
