@@ -38,7 +38,7 @@ const Header = () => {
               </button>
             </div>
             
-            <a href="/" className="text-xl font-light tracking-[0.3em] uppercase font-serif">
+            <a href="/" className="text-xl font-light tracking-[0.3em] text-black uppercase font-serif">
               Slide Luxury<span className="text-[#e21e26]">Shop</span>
             </a>
             
