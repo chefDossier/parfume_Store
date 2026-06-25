@@ -1,174 +1,139 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ShoppingBag, Eye } from 'lucide-react';
+import { ShoppingBag, Search, MessageCircle, ArrowRight } from 'lucide-react';
+import { useInventory } from '@/hooks/useInventory';
+import { useSearchParams, useRouter } from 'next/navigation';
 
-interface Product {
-  id: string;
-  name: string;
-  family: string;
-  price: string;
-  image: string;
-  tag?: string;
-}
+const CLOUDINARY_BASE_URL = "https://res.cloudinary.com/dtlhwfewd/image/upload/v1781606730/";
+const WHATSAPP_NUMBER = "23770738850";
 
-const products: Product[] = [
-  {
-    id: "1",
-    name: "Ambre Impérial",
-    family: "Boisé Épicé",
-    price: "145,00 €",
-    image: "/parfume/black_per.jpg",
-    tag: "Best-seller"
-  },
-  {
-    id: "2",
-    name: "Sillage d'Or",
-    family: "Floral Ambré",
-    price: "160,00 €",
-    image: "/parfume/black_per.jpg",
-  },
-  {
-    id: "3",
-    name: "Nuit Nomade",
-    family: "Cuir Oriental",
-    price: "155,00 €",
-    image: "/parfume/black_per.jpg",
-    tag: "Nouveauté"
-  },
-  {
-    id: "4",
-    name: "Brume Solaire",
-    family: "Agrumes Musqués",
-    price: "135,00 €",
-    image: "/parfume/black_per.jpg",
-  },
-  {
-    id: "5",
-    name: "Brume Solaire lunaire",
-    family: "Agrumes Musqués",
-    price: "135,00 €",
-    image: "/parfume/black_per.jpg",
-  },
-  {
-    id: "6",
-    name: "Brume lunaire",
-    family: "Agrumes Musqués",
-    price: "135,00 €",
-    image: "/parfume/black_per.jpg",
-  }
-];
+// Composant léger pour le chargement
+const ImagePlaceholder = () => (
+  <div className="absolute inset-0 bg-neutral-800 animate-pulse" />
+);
 
 const ProductGrid = () => {
+  const { products } = useInventory();
+  const searchParams = useSearchParams();
+  const router = useRouter();
   
-  // Fonction pour déclencher l'ouverture du panier
-  const handleAddToCart = (productId: string) => {
-    const event = new CustomEvent('open-cart', { detail: { productId } });
-    window.dispatchEvent(event);
-    console.log(`Produit ${productId} ajouté au panier.`);
+  const activeCategory = searchParams.get('category');
+  const activeSearch = searchParams.get('q') || '';
+  const [localSearch, setLocalSearch] = useState(activeSearch);
+  
+  useEffect(() => {
+    setLocalSearch(activeSearch);
+  }, [activeSearch]);
+
+  const filteredProducts = products.filter((item: any) => {
+    const p = item.matched_product;
+    const q = localSearch.toLowerCase();
+    const matchesCategory = activeCategory ? p.category.toLowerCase().replace(/\s+/g, '-') === activeCategory : true;
+    const matchesSearch = q ? (p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q)) : true;
+    return matchesCategory && matchesSearch;
+  });
+
+  const handleAddToCart = (item: any) => {
+    const rawCart = localStorage.getItem('cart');
+    let cart = [];
+    try {
+      cart = rawCart ? JSON.parse(rawCart) : [];
+      if (!Array.isArray(cart)) cart = [];
+    } catch (e) { cart = []; }
+
+    const targetId = item?.matched_product?.id;
+    if (!targetId) return;
+
+    const isExists = cart.find((cartItem: any) => cartItem?.matched_product?.id === targetId);
+    
+    if (!isExists) {
+      cart.push(item);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      window.dispatchEvent(new Event('storage')); 
+    }
+    window.dispatchEvent(new CustomEvent('open-cart'));
+  };
+
+  const handleWhatsAppRedirect = (customMessage?: string) => {
+    const message = customMessage || "Bonjour, je cherche une fragrance spécifique mais je ne l'ai pas trouvée dans votre catalogue. Pouvez-vous m'aider ?";
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  const handleSearchChange = (val: string) => {
+    setLocalSearch(val);
+    const params = new URLSearchParams(searchParams.toString());
+    if (val) params.set('q', val); else params.delete('q');
+    router.replace(`/?${params.toString()}`, { scroll: false });
   };
 
   return (
     <section id="collections" className="w-full bg-[#fcfbfa] py-24 px-6 md:px-12 border-t border-neutral-100">
       <div className="max-w-7xl mx-auto">
-        
-        {/* --- EN-TÊTE DE LA SECTION --- */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
           <div className="space-y-3">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-[#e21e26] font-medium block">La Collection</span>
+            <span className="text-[10px] uppercase tracking-[0.3em] text-[#e21e26] font-medium block">
+              {activeCategory ? activeCategory.replace('-', ' ') : "La Collection"}
+            </span>
             <h2 className="text-2xl md:text-4xl font-light text-neutral-900 font-serif tracking-tight">
-              Nos Extraits de Parfum
+              {localSearch ? `Recherche : ${localSearch}` : "Nos Fragrances"}
             </h2>
           </div>
-          <p className="text-xs text-neutral-400 max-w-xs leading-relaxed font-light">
-            Des architectures olfactives singulières, concentrées à l'extrême pour une tenue mémorable sur la peau.
-          </p>
+
+          <div className="relative w-full md:w-80 group">
+            <Search size={16} className="absolute left-3 top-3.5 text-neutral-400" />
+            <input
+              type="text"
+              placeholder="Nom, marque..."
+              value={localSearch}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              className="w-full bg-white border border-neutral-200 py-3 pl-10 pr-4 text-xs tracking-widest uppercase outline-none focus:border-[#e21e26] transition-all rounded-lg"
+            />
+          </div>
         </div>
 
-        {/* --- GRILLE DE PRODUITS --- */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
-          {products.map((product) => (
-            <motion.div 
-              key={product.id}
-              className="group flex flex-col justify-between"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {/* Zone Image Interactive */}
-              <div className="relative aspect-[3/4] w-full bg-neutral-50 rounded-2xl overflow-hidden border border-neutral-200/40 mb-4 flex items-center justify-center">
-                
-                {/* Badge contextuel */}
-                {product.tag && (
-                  <span className="absolute top-4 left-4 z-20 px-2.5 py-1 bg-white/90 backdrop-blur-xs text-neutral-800 text-[9px] font-bold uppercase tracking-wider rounded-md border border-neutral-100 shadow-xs">
-                    {product.tag}
-                  </span>
-                )}
-
-                {/* Image du parfum avec zoom progressif */}
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-full object-cover transform md:group-hover:scale-105 transition-transform duration-1000 ease-[0.16, 1, 0.3, 1]"
-                />
-
-                {/* INTERFACE POUR DESKTOP (PC) : Uniquement visible au hover */}
-                <div className="absolute inset-0 bg-neutral-950/20 opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 z-10 flex flex-col justify-end p-4 gap-2 hidden md:flex pointer-events-none md:group-hover:pointer-events-auto">
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((item: any) => (
+              <motion.div key={item.matched_product.id} className="group flex flex-col justify-between" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+                <div className="relative aspect-[3/4] w-full bg-neutral-100 rounded-2xl overflow-hidden mb-4">
+                  <ImagePlaceholder />
+                  <img 
+                    src={`${CLOUDINARY_BASE_URL}${item.image_name}.jpg`} 
+                    alt={item.matched_product.name} 
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover relative z-10 transition-opacity duration-500 opacity-0 group-hover:scale-105"
+                    onLoad={(e) => (e.currentTarget.style.opacity = '1')}
+                  />
                   
-                  {/* Bouton Ajouter Rapide PC */}
-                  <button 
-                    onClick={() => handleAddToCart(product.id)}
-                    className="w-full bg-white text-neutral-950 hover:bg-[#e21e26] hover:text-white py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all duration-300 transform translate-y-2 md:group-hover:translate-y-0"
-                  >
-                    <ShoppingBag size={14} />
-                    Ajouter au panier
-                  </button>
-
-                  {/* Bouton Aperçu PC */}
-                  <button className="w-full bg-white/20 backdrop-blur-md text-white hover:bg-white/30 py-3 rounded-xl text-[11px] font-medium uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 transform translate-y-2 md:group-hover:translate-y-0 delay-75">
-                    <Eye size={14} />
-                    Aperçu rapide
-                  </button>
+                  <div className="absolute inset-0 bg-neutral-950/20 opacity-0 group-hover:opacity-100 transition-opacity z-20 flex flex-col justify-end p-4 gap-2">
+                    <button onClick={() => handleAddToCart(item)} className="w-full bg-white text-neutral-950 py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+                      <ShoppingBag size={14} /> Ajouter
+                    </button>
+                    <button onClick={() => handleWhatsAppRedirect(`Bonjour, je suis intéressé par le parfum : ${item.matched_product.name}`)} className="w-full bg-[#25D366] text-white py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+                      <MessageCircle size={14} /> WhatsApp
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {/* --- DETAILS DU PRODUIT --- */}
-              <div className="space-y-1 px-1 mb-4 flex-1">
-                <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-xs font-bold tracking-[0.1em] uppercase text-neutral-800 font-sans md:group-hover:text-[#e21e26] transition-colors duration-300">
-                    {product.name}
-                  </h3>
-                  <span className="text-xs font-medium text-neutral-900 shrink-0">
-                    {product.price}
-                  </span>
+                <div className="space-y-1 px-1">
+                  <h3 className="text-xs font-bold tracking-[0.1em] uppercase text-neutral-800">{item.matched_product.name}</h3>
+                  <p className="text-[11px] text-neutral-400 font-light italic">{item.matched_product.brand} • {item.matched_product.category}</p>
+                  <span className="text-xs font-medium text-neutral-900">{item.matched_product.price ? `${item.matched_product.price.toLocaleString()} FCFA` : "Sur demande"}</span>
                 </div>
-                <p className="text-[11px] text-neutral-400 font-light italic">
-                  {product.family}
-                </p>
-              </div>
-
-              {/* INTERFACE POUR MOBILE : Toujours présente et accessible sous les détails */}
-              <div className="flex flex-col gap-2 mt-1 md:hidden w-full px-1">
-                <button 
-                  onClick={() => handleAddToCart(product.id)}
-                  className="w-full bg-neutral-950 text-white active:bg-[#e21e26] py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors duration-200"
-                >
-                  <ShoppingBag size={14} />
-                  Ajouter au panier
-                </button>
-                
-                <button className="w-full bg-transparent border border-neutral-200 text-neutral-800 active:bg-neutral-50 py-2.5 rounded-xl text-[11px] font-medium uppercase tracking-wider flex items-center justify-center gap-2 transition-colors duration-200">
-                  <Eye size={14} />
-                  Aperçu rapide
-                </button>
-              </div>
-
+              </motion.div>
+            ))
+          ) : (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="col-span-full py-20 text-center">
+              <p className="text-neutral-500 mb-6 text-sm">Il se peut que ce produit ne soit pas disponible actuellement. Contactez-nous pour une demande personnalisée.</p>
+              <button onClick={() => handleWhatsAppRedirect()} className="inline-flex items-center gap-2 bg-neutral-900 text-white px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#e21e26] transition-colors">
+                Nous contacter sur WhatsApp <ArrowRight size={14} />
+              </button>
             </motion.div>
-          ))}
+          )}
         </div>
-
       </div>
     </section>
   );

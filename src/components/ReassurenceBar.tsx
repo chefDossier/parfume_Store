@@ -27,7 +27,7 @@ const features = [
     id: 4,
     icon: Leaf,
     title: "Maison Responsable",
-    description: "Conception locale & flacon durable"
+    description: "Fournisseur certifié & flacon durable"
   }
 ];
 

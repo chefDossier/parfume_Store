@@ -119,7 +119,7 @@
                 variants={fadeInUp}
                 className="text-sm md:text-base text-neutral-500 leading-relaxed max-w-xl font-light"
             >
-                Plus qu’un sillage, une architecture sensorielle. Maison Aura façonne des extraits de parfum rares où les essences précieuses entrent en résonance avec votre histoire.
+                Plus qu’un sillage, une architecture sensorielle. Slide Luxury Shop façonne des extraits de parfum rares où les essences précieuses entrent en résonance avec votre histoire.
             </motion.p>
 
             <motion.div 
@@ -163,7 +163,7 @@
             >
                 <img 
                 src="/parfume/black_per.jpg" 
-                alt="Flacon d'exception Maison Aura" 
+                alt="Flacon d'exception Slide Luxury Shop" 
                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000 select-none"
                 />
                 {/* Ombre douce intégrée pour donner de la profondeur à la surface du verre */}

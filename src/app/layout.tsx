@@ -15,15 +15,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Maison Aura | Haute Parfumerie & Fragrances d'Exception",
-  description: "Découvrez Maison Aura, créateur de fragrances invisibles et mémorables. Explorez nos collections de parfums de luxe, extraits de parfum et réalisez votre diagnostic olfactif personnalisé.",
-  keywords: ["parfumerie de luxe", "parfum sur mesure", "Maison Aura", "extraits de parfum", "haute parfumerie", "fragrances"],
-  authors: [{ name: "Maison Aura" }],
+  title: "Slide luxury shop | Haute Parfumerie & Fragrances d'Exception",
+  description: "Découvrez Slide luxury shop, créateur de fragrances invisibles et mémorables. Explorez nos collections de parfums de luxe, extraits de parfum et réalisez votre diagnostic olfactif personnalisé.",
+  keywords: ["parfumerie de luxe", "parfum sur mesure", "Slide luxury shop", "extraits de parfum", "haute parfumerie", "fragrances"],
+  authors: [{ name: "Slide luxury shop" }],
   openGraph: {
-    title: "Maison Aura | Haute Parfumerie",
+    title: "Slide luxury shop | Haute Parfumerie",
     description: "Chaque fragrance raconte une histoire invisible, capturée dans un flacon d'exception.",
-    url: "https://maison-aura.com",
-    siteName: "Maison Aura",
+    url: "slide-luxury-shop.com",
+    siteName: "Slide luxury shop",
     locale: "fr_FR",
     type: "website",
   },

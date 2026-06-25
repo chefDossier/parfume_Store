@@ -102,7 +102,7 @@ const DiagnosticQuiz = () => {
               <div className="flex items-center justify-center gap-3 text-neutral-400 select-none">
                 <Sparkles size={11} className="text-[#e21e26] animate-pulse shrink-0" />
                 <span className="text-[10px] uppercase tracking-[0.35em] font-medium font-sans text-neutral-500">
-                  Le Diagnostic Olfactif Aura
+                  Le Diagnostic Olfactif Luxury Shop
                 </span>
               </div>
               

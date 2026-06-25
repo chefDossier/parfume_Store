@@ -23,7 +23,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 border-b border-neutral-200/60 items-start">
           <div className="lg:col-span-5 space-y-3">
             <h3 className="text-xl md:text-2xl font-light font-serif tracking-tight text-neutral-900">
-              Rejoindre le Cercle <span className="italic font-normal">Aura</span>
+              Rejoindre le Cercle <span className="italic font-normal">Luxury Shop</span>
             </h3>
             <p className="text-xs text-neutral-400 font-light max-w-sm leading-relaxed">
               Inscrivez-vous pour recevoir les invitations à nos lancements privés, nos éditions ultra-limitées et nos récits olfactifs.
@@ -55,7 +55,7 @@ const Footer = () => {
           
           <div className="col-span-2 md:col-span-4 lg:col-span-5 space-y-6">
             <span className="text-lg font-serif tracking-[0.2em] uppercase font-light text-neutral-900 block">
-              Maison Aura
+              Slide luxury shop
             </span>
             <p className="text-xs text-neutral-400 font-light leading-relaxed max-w-xs">
               Créateurs d'architectures invisibles. Chaque flacon est une œuvre d'artisanat d'art, pensée et assemblée pour résonner avec l'âme.
@@ -83,7 +83,7 @@ const Footer = () => {
           <div className="col-span-2 md:col-span-2 lg:col-span-3 space-y-4">
             <p className="text-[10px] uppercase tracking-[0.25em] font-semibold text-neutral-400">Boutiques</p>
             <p className="text-xs text-neutral-500 font-light leading-relaxed">
-              Atelier Aura — 24 Rue de la Paix, Paris<br />
+              Slide Luxury Shop — buea cameroun<br />
               <span className="text-neutral-400 font-mono text-[11px]">Flagship & Diagnostic privé</span>
             </p>
           </div>
@@ -94,7 +94,7 @@ const Footer = () => {
         <div className="pt-8 border-t border-neutral-200/60 flex flex-col md:flex-row justify-between items-center gap-6 text-[11px] font-light text-neutral-400">
           
           <div className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-2 order-2 md:order-1">
-            <span>© {currentYear} Maison Aura. Tous droits réservés.</span>
+            <span>© {currentYear} Slide luxury shop. Tous droits réservés.</span>
             <a href="#" className="hover:text-neutral-800 transition-colors">Mentions Légales</a>
             <a href="#" className="hover:text-neutral-800 transition-colors">Données Personnelles</a>
           </div>
