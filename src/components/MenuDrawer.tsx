@@ -13,18 +13,24 @@ const MenuContent = ({ onClose, menuCategories }: { onClose: () => void, menuCat
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const handleCategoryClick = (title: string) => {
+  const handleCategoryClick = (title: string | null) => {
     // 1. Créer une nouvelle instance de recherche
     const params = new URLSearchParams(searchParams.toString());
     
-    // 2. Normalisation
-    const categoryValue = title.toLowerCase().replace(/\s+/g, '-');
-    
-    // 3. Mettre à jour la catégorie
-    params.set('category', categoryValue);
-    
-    // 4. IMPORTANT : Supprimer le paramètre 'q' (recherche) pour réinitialiser le filtre
-    params.delete('q');
+    if (title === null) {
+      // Nettoyer tous les filtres pour afficher tout
+      params.delete('category');
+      params.delete('q');
+    } else {
+      // 2. Normalisation
+      const categoryValue = title.toLowerCase().replace(/\s+/g, '-');
+      
+      // 3. Mettre à jour la catégorie
+      params.set('category', categoryValue);
+      
+      // 4. IMPORTANT : Supprimer le paramètre 'q' (recherche) pour réinitialiser le filtre
+      params.delete('q');
+    }
     
     // 5. Utiliser replace avec scroll: false pour rester au même endroit
     router.replace(`/?${params.toString()}`, { scroll: false });
@@ -47,6 +53,21 @@ const MenuContent = ({ onClose, menuCategories }: { onClose: () => void, menuCat
         </div>
         
         <div className="space-y-6">
+          {/* Option pour tout afficher */}
+          <button 
+            onClick={() => handleCategoryClick(null)}
+            className="w-full flex items-center justify-between py-2 border-b border-neutral-100/60 group text-neutral-800 hover:text-[#e21e26] transition-colors"
+          >
+            <span className="text-sm font-medium tracking-[0.15em] uppercase font-serif">
+              Tout
+            </span>
+            <ChevronRight 
+              size={14} 
+              className="text-neutral-300 group-hover:text-[#e21e26] transition-transform group-hover:translate-x-1" 
+            />
+          </button>
+
+          {/* Liste des catégories */}
           {menuCategories.map((cat: any, i: number) => (
             <button 
               key={i} 
@@ -105,7 +126,6 @@ const MenuDrawer = ({ isOpen, onClose, menuCategories }: any) => {
             transition={{ type: "tween", duration: 0.45, ease: [0.16, 1, 0.3, 1] }} 
             className="fixed top-0 bottom-0 left-0 w-full max-w-md bg-[#fcfbfa] shadow-2xl z-50 p-8 flex flex-col justify-between border-r border-neutral-100"
           >
-            {/* Suspense enveloppe la logique qui utilise useSearchParams */}
             <Suspense fallback={<div className="p-8 text-xs text-neutral-400">Chargement...</div>}>
               <MenuContent onClose={onClose} menuCategories={menuCategories} />
             </Suspense>

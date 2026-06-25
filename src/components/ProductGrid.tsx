@@ -86,7 +86,7 @@ const ProductContent = () => {
             placeholder="Nom, marque..."
             value={localSearch}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className="w-full bg-white border border-neutral-200 py-3 pl-10 pr-4 text-xs tracking-widest uppercase outline-none focus:border-[#e21e26] transition-all rounded-lg"
+            className="w-full bg-white border border-neutral-200 py-3 pl-10 pr-4 text-xs tracking-widest uppercase outline-none focus:border-[#e21e26] transition-all rounded-lg text-neutral-800 placeholder-neutral-300"
           />
         </div>
       </div>
