@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingBag, Menu } from 'lucide-react';
@@ -10,44 +11,77 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   
   const { categories } = useInventory();
 
+  // Fonction pour mettre à jour le nombre d'articles depuis le localStorage
+  const updateCartCount = () => {
+    const rawCart = localStorage.getItem('cart');
+    try {
+      const cart = rawCart ? JSON.parse(rawCart) : [];
+      setCartCount(Array.isArray(cart) ? cart.length : 0);
+    } catch (e) {
+      setCartCount(0);
+    }
+  };
+
   useEffect(() => {
+    // Initialisation
+    updateCartCount();
+
+    // Écouteurs pour mettre à jour le panier en temps réel
+    window.addEventListener('storage', updateCartCount);
+    window.addEventListener('open-cart', updateCartCount);
+
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('storage', updateCartCount);
+      window.removeEventListener('open-cart', updateCartCount);
+    };
   }, []);
 
   return (
     <>
       <motion.header 
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 border-b ${
-          isScrolled ? "bg-white/80 backdrop-blur-md border-neutral-100 py-4 shadow-sm" : "bg-transparent border-transparent py-6"
+          isScrolled ? "bg-white/90 backdrop-blur-md border-neutral-100 py-4 shadow-sm" : "bg-transparent border-transparent py-6"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center flex-1">
-              <button 
-                onClick={() => setIsMenuOpen(true)} 
-                className="flex items-center gap-2.5 text-xs tracking-[0.2em] uppercase text-neutral-800 hover:text-[#e21e26] font-medium"
-              >
-                <Menu size={16} /> <span className="hidden md:inline">menu</span>
-              </button>
-            </div>
-            
-            <a href="/" className="text-xl font-light tracking-[0.3em] text-black uppercase font-serif">
+          {/* Menu Burger - Largeur fixe */}
+          <div className="flex-1">
+            <button 
+              onClick={() => setIsMenuOpen(true)} 
+              className="flex items-center gap-2.5 text-[10px] md:text-xs tracking-[0.2em] uppercase text-neutral-800 hover:text-[#e21e26] font-medium transition-colors"
+            >
+              <Menu size={18} /> <span className="hidden md:inline">menu</span>
+            </button>
+          </div>
+          
+          {/* Titre Centré */}
+          <div className="flex-1 flex justify-center">
+            <a href="/" className="text-sm md:text-xl text-center font-light tracking-[0.2em] md:tracking-[0.3em] text-black uppercase font-serif whitespace-nowrap">
               Slide Luxury<span className="text-[#e21e26]">Shop</span>
             </a>
-            
-            <div className="flex items-center gap-6 justify-end flex-1">
+          </div>
+          
+          {/* Panier - Largeur fixe */}
+          <div className="flex-1 flex justify-end">
+            <div className="relative cursor-pointer group" onClick={() => setIsCartOpen(true)}>
               <ShoppingBag 
-                size={18} 
-                onClick={() => setIsCartOpen(true)} 
-                className="cursor-pointer hover:text-[#e21e26] transition-colors" 
+                size={22} 
+                className="text-neutral-900 group-hover:text-[#e21e26] transition-colors" 
               />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-[#e21e26] text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                  {cartCount}
+                </span>
+              )}
             </div>
           </div>
           
