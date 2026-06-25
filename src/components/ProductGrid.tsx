@@ -13,7 +13,6 @@ const ImagePlaceholder = () => (
   <div className="absolute inset-0 bg-neutral-800 animate-pulse" />
 );
 
-// Sous-composant pour isoler l'usage de useSearchParams
 const ProductContent = () => {
   const { products } = useInventory();
   const searchParams = useSearchParams();
@@ -107,7 +106,8 @@ const ProductContent = () => {
                   onLoad={(e) => (e.currentTarget.style.opacity = '1')}
                 />
                 
-                <div className="absolute inset-0 bg-neutral-950/20 opacity-0 group-hover:opacity-100 transition-opacity z-20 flex flex-col justify-end p-4 gap-2">
+                {/* MODIFICATION : Changement de la gestion de l'opacité pour mobile */}
+                <div className="absolute inset-0 bg-neutral-950/20 md:opacity-0 md:group-hover:opacity-100 transition-opacity z-20 flex flex-col justify-end p-4 gap-2">
                   <button onClick={() => handleAddToCart(item)} className="w-full bg-white text-neutral-950 py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-2">
                     <ShoppingBag size={14} /> Ajouter
                   </button>
