@@ -77,7 +77,7 @@ const DiagnosticQuiz = () => {
   };
 
   return (
-    <section id="diagnostic" className="w-full bg-[#fcfbfa] py-32 px-6 md:px-12 border-t border-neutral-100 relative overflow-hidden">
+    <section id="diagnostic" className="w-full py-32 px-6 md:px-12 border-t border-neutral-100 relative overflow-hidden">
       
       <div className="absolute inset-x-0 top-0 h-full w-full pointer-events-none flex justify-between max-w-7xl mx-auto px-12 opacity-20">
         <div className="w-[1px] h-full bg-neutral-300" />

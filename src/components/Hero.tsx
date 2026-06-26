@@ -50,7 +50,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen w-full bg-[#fcfbfa] flex items-center overflow-hidden pt-24 md:pt-16">
+    <section className="relative min-h-screen w-full flex items-center overflow-hidden pt-24 md:pt-16">
       
       <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
         <div className="absolute top-0 left-1/3 w-[1px] h-full bg-neutral-200/60" />
