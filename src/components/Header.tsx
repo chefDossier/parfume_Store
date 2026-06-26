@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingBag, Menu } from 'lucide-react';
+import Image from 'next/image';
 import MenuDrawer from './MenuDrawer';
 import CartDrawer from './CartDrawer';
 import { useInventory } from '@/hooks/useInventory';
@@ -63,10 +64,22 @@ const Header = () => {
             </button>
           </div>
           
-          {/* Titre Centré */}
+          {/* Logo et Texte centrés */}
           <div className="flex-1 flex justify-center">
-            <a href="/" className="text-sm md:text-xl text-center font-light tracking-[0.2em] md:tracking-[0.3em] text-black uppercase font-serif whitespace-nowrap">
-              Slide Luxury<span className="text-[#e21e26]">Shop</span>
+            <a href="/" className="flex items-center gap-3">
+              <div className="relative h-8 w-auto">
+                <Image 
+                  src="/logo.png" 
+                  alt="Logo" 
+                  width={32} 
+                  height={32} 
+                  className="h-8 w-auto object-contain"
+                  priority
+                />
+              </div>
+              <span className="text-sm md:text-lg font-light tracking-[0.2em] text-black uppercase font-serif whitespace-nowrap">
+                Slide Luxury<span className="text-[#e21e26]">Shop</span>
+              </span>
             </a>
           </div>
           
