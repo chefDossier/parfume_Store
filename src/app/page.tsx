@@ -4,7 +4,7 @@ import DiagnosticQuiz from "@/components/DiagnosticQuiz";
 import ReassuranceBar from "@/components/ReassurenceBar";
 export default function Home() {
   return (
-    <div className="w-full min-h-screen flex flex-col">
+    <div className="w-full min-h-screen flex flex-col bg-amber-50">
       {/* Étape 1 : Section d'immersion visuelle */}
       <Hero />
 

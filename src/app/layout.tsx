@@ -39,7 +39,7 @@ export default function RootLayout({
       lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-amber-100 text-neutral-900 selection:bg-[#fef2f2] selection:text-[#e21e26]">
+      <body className="min-h-full flex flex-col text-neutral-900 selection:bg-[#fef2f2] selection:text-[#e21e26]">
         {/* Le Header fixe qui chapeautera toutes les pages de ta boutique */}
         <Header />
         
