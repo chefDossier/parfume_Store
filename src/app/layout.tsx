@@ -15,15 +15,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Slide luxury shop | Haute Parfumerie & Fragrances d'Exception",
-  description: "Découvrez Slide luxury shop, créateur de fragrances invisibles et mémorables. Explorez nos collections de parfums de luxe, extraits de parfum et réalisez votre diagnostic olfactif personnalisé.",
-  keywords: ["parfumerie de luxe", "parfum sur mesure", "Slide luxury shop", "extraits de parfum", "haute parfumerie", "fragrances"],
-  authors: [{ name: "Slide luxury shop" }],
+  title: "sidess luxury shop | Haute Parfumerie & Fragrances d'Exception",
+  description: "Découvrez sidess luxury shop, créateur de fragrances invisibles et mémorables. Explorez nos collections de parfums de luxe, extraits de parfum et réalisez votre diagnostic olfactif personnalisé.",
+  keywords: ["parfumerie de luxe", "parfum sur mesure", "sidess luxury shop", "extraits de parfum", "haute parfumerie", "fragrances"],
+  authors: [{ name: "sidess luxury shop" }],
   openGraph: {
-    title: "Slide luxury shop | Haute Parfumerie",
+    title: "sidess luxury shop | Haute Parfumerie",
     description: "Chaque fragrance raconte une histoire invisible, capturée dans un flacon d'exception.",
-    url: "slide-luxury-shop.com",
-    siteName: "Slide luxury shop",
+    url: "sidess-luxury-shop.com",
+    siteName: "sidess luxury shop",
     locale: "fr_FR",
     type: "website",
   },

@@ -117,7 +117,7 @@ const Hero = () => {
             variants={fadeInUp}
             className="text-sm md:text-base text-neutral-500 leading-relaxed max-w-xl font-light"
           >
-            Plus qu’un sillage, une architecture sensorielle. Slide Luxury Shop façonne des extraits de parfum rares où les essences précieuses entrent en résonance avec votre histoire.
+            Plus qu’un sillage, une architecture sensorielle. sidess Luxury Shop façonne des extraits de parfum rares où les essences précieuses entrent en résonance avec votre histoire.
           </motion.p>
 
           <motion.div 
@@ -159,7 +159,7 @@ const Hero = () => {
           >
             <img 
               src="/parfume/black_per.jpg" 
-              alt="Flacon d'exception Slide Luxury Shop" 
+              alt="Flacon d'exception sidess Luxury Shop" 
               className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000 select-none"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/20 via-transparent to-neutral-950/10 pointer-events-none" />

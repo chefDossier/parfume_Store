@@ -72,7 +72,7 @@ const Header = () => {
                 />
               </div>
               <span className="text-sm md:text-lg font-light tracking-[0.2em] text-black uppercase font-serif whitespace-nowrap">
-                Slide Luxury<span className="text-[#C5A059]">Shop</span>
+                sidess Luxury<span className="text-[#C5A059]">Shop</span>
               </span>
             </a>
           </div>
