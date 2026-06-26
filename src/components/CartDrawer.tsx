@@ -29,17 +29,14 @@ const CartDrawer = ({ isOpen, onClose }: any) => {
   };
 
   const handleCheckout = () => {
-    // Construction du message WhatsApp
-    let message = "Bonjour, je souhaite commander les articles suivants :\n\n";
+    let message = "Hello, I would like to order the following items:\n\n";
     
     cart.forEach((item, index) => {
       const p = item.matched_product;
-      message += `${index + 1}. *${p.name}* - ${p.brand}\n   Prix: ${p.price ? p.price + ' FCFA' : 'Sur demande'}\n\n`;
+      message += `${index + 1}. *${p.name}* - ${p.brand}\n Price: ${p.price ? p.price + ' FCFA' : 'On request'}\n\n`;
     });
 
-    message += "Merci de me confirmer la disponibilité et les modalités de livraison.";
-    
-    // Redirection
+    message += "Please confirm availability and delivery options.";
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
@@ -50,7 +47,7 @@ const CartDrawer = ({ isOpen, onClose }: any) => {
           <motion.div 
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} 
             onClick={onClose} 
-            className="fixed inset-0 bg-black/20 backdrop-blur-xs z-50" 
+            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50" 
           />
           <motion.div 
             initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} 
@@ -59,8 +56,8 @@ const CartDrawer = ({ isOpen, onClose }: any) => {
           >
             <div>
               <div className="flex items-center justify-between mb-12">
-                <span className="text-[10px] tracking-[0.3em] uppercase text-neutral-400 font-medium">
-                  votre sélection ({cart.length})
+                <span className="text-[10px] tracking-[0.3em] uppercase text-neutral-500 font-medium">
+                  Your selection ({cart.length})
                 </span>
                 <button onClick={onClose} className="p-2 hover:rotate-90 transition-transform duration-300 text-neutral-500 hover:text-neutral-900">
                   <X size={18} />
@@ -71,7 +68,7 @@ const CartDrawer = ({ isOpen, onClose }: any) => {
                 {cart.length > 0 ? (
                   cart.map((item: any) => (
                     <div key={item.matched_product.id} className="flex gap-4 items-center">
-                      <div className="w-16 h-20 bg-neutral-100 rounded-lg overflow-hidden flex-shrink-0">
+                      <div className="w-16 h-20 bg-neutral-100 rounded-sm overflow-hidden flex-shrink-0">
                         <img 
                           src={`${CLOUDINARY_BASE_URL}${item.image_name}.jpg`} 
                           alt={item.matched_product.name} 
@@ -82,18 +79,18 @@ const CartDrawer = ({ isOpen, onClose }: any) => {
                         <h4 className="text-[11px] font-bold uppercase tracking-widest text-neutral-900">
                           {item.matched_product.name}
                         </h4>
-                        <p className="text-[10px] text-neutral-400">{item.matched_product.brand}</p>
-                        <p className="text-[11px] font-medium text-neutral-900">
-                          {item.matched_product.price ? `${item.matched_product.price.toLocaleString()} FCFA` : "Prix sur demande"}
+                        <p className="text-[10px] text-neutral-500 italic">{item.matched_product.brand}</p>
+                        <p className="text-[11px] font-medium text-[#C5A059]">
+                          {item.matched_product.price ? `${item.matched_product.price.toLocaleString()} FCFA` : "Price on request"}
                         </p>
                       </div>
-                      <button onClick={() => handleRemove(item.matched_product.id)} className="p-2 text-neutral-300 hover:text-[#e21e26] transition-colors">
+                      <button onClick={() => handleRemove(item.matched_product.id)} className="p-2 text-neutral-300 hover:text-[#C5A059] transition-colors">
                         <Trash2 size={16} />
                       </button>
                     </div>
                   ))
                 ) : (
-                  <p className="text-xs text-neutral-400 italic">Votre panier est vide.</p>
+                  <p className="text-xs text-neutral-400 italic">Your cart is empty.</p>
                 )}
               </div>
             </div>
@@ -102,9 +99,9 @@ const CartDrawer = ({ isOpen, onClose }: any) => {
               <button 
                 onClick={handleCheckout}
                 disabled={cart.length === 0}
-                className="w-full bg-neutral-950 text-white py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#e21e26] disabled:bg-neutral-200 transition-colors"
+                className="w-full bg-neutral-900 text-white py-4 rounded-sm text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#C5A059] disabled:bg-neutral-200 transition-all duration-300"
               >
-                procéder au paiement
+                Proceed to Checkout
               </button>
             </div>
           </motion.div>

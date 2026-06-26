@@ -71,7 +71,7 @@ const ProductContent = () => {
     <>
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
         <div className="space-y-3">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-[#e21e26] font-medium block">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-[#C5A059] font-medium block">
             {activeCategory ? activeCategory.replace('-', ' ') : "La Collection"}
           </span>
           <h2 className="text-2xl md:text-4xl font-light text-neutral-900 font-serif tracking-tight">
@@ -86,7 +86,7 @@ const ProductContent = () => {
             placeholder="Nom, marque..."
             value={localSearch}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className="w-full bg-white border border-neutral-200 py-3 pl-10 pr-4 text-xs tracking-widest uppercase outline-none focus:border-[#e21e26] transition-all rounded-lg text-neutral-800 placeholder-neutral-300"
+            className="w-full bg-white border border-neutral-200 py-3 pl-10 pr-4 text-xs tracking-widest uppercase outline-none focus:border-[#C5A059] transition-all rounded-lg text-neutral-800 placeholder-neutral-300"
           />
         </div>
       </div>
@@ -106,7 +106,6 @@ const ProductContent = () => {
                   onLoad={(e) => (e.currentTarget.style.opacity = '1')}
                 />
                 
-                {/* MODIFICATION : Changement de la gestion de l'opacité pour mobile */}
                 <div className="absolute inset-0 bg-neutral-950/20 md:opacity-0 md:group-hover:opacity-100 transition-opacity z-20 flex flex-col justify-end p-4 gap-2">
                   <button onClick={() => handleAddToCart(item)} className="w-full bg-white text-neutral-950 py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-2">
                     <ShoppingBag size={14} /> Ajouter
@@ -127,7 +126,7 @@ const ProductContent = () => {
         ) : (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="col-span-full py-20 text-center">
             <p className="text-neutral-500 mb-6 text-sm">Il se peut que ce produit ne soit pas disponible actuellement. Contactez-nous pour une demande personnalisée.</p>
-            <button onClick={() => handleWhatsAppRedirect()} className="inline-flex items-center gap-2 bg-neutral-900 text-white px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#e21e26] transition-colors">
+            <button onClick={() => handleWhatsAppRedirect()} className="inline-flex items-center gap-2 bg-neutral-900 text-white px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] transition-colors">
               Nous contacter sur WhatsApp <ArrowRight size={14} />
             </button>
           </motion.div>

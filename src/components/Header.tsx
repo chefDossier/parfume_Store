@@ -16,7 +16,6 @@ const Header = () => {
   
   const { categories } = useInventory();
 
-  // Fonction pour mettre à jour le nombre d'articles depuis le localStorage
   const updateCartCount = () => {
     const rawCart = localStorage.getItem('cart');
     try {
@@ -28,16 +27,11 @@ const Header = () => {
   };
 
   useEffect(() => {
-    // Initialisation
     updateCartCount();
-
-    // Écouteurs pour mettre à jour le panier en temps réel
     window.addEventListener('storage', updateCartCount);
     window.addEventListener('open-cart', updateCartCount);
-
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('storage', updateCartCount);
@@ -49,22 +43,22 @@ const Header = () => {
     <>
       <motion.header 
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 border-b ${
-          isScrolled ? "bg-white/90 backdrop-blur-md border-neutral-100 py-4 shadow-sm" : "bg-transparent border-transparent py-6"
+          isScrolled ? "bg-amber-50 backdrop-blur-md border-neutral-100 py-4 shadow-sm" : "bg-transparent border-transparent py-6"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           
-          {/* Menu Burger - Largeur fixe */}
+          {/* Menu Burger */}
           <div className="flex-1">
             <button 
               onClick={() => setIsMenuOpen(true)} 
-              className="flex items-center gap-2.5 text-[10px] md:text-xs tracking-[0.2em] uppercase text-neutral-800 hover:text-[#e21e26] font-medium transition-colors"
+              className="flex items-center gap-2.5 text-[10px] md:text-xs tracking-[0.2em] uppercase text-neutral-800 hover:text-[#C5A059] font-medium transition-colors"
             >
               <Menu size={18} /> <span className="hidden md:inline">menu</span>
             </button>
           </div>
           
-          {/* Logo et Texte centrés */}
+          {/* Logo et Texte */}
           <div className="flex-1 flex justify-center">
             <a href="/" className="flex items-center gap-3">
               <div className="relative h-8 w-auto">
@@ -78,20 +72,20 @@ const Header = () => {
                 />
               </div>
               <span className="text-sm md:text-lg font-light tracking-[0.2em] text-black uppercase font-serif whitespace-nowrap">
-                Slide Luxury<span className="text-[#e21e26]">Shop</span>
+                Slide Luxury<span className="text-[#C5A059]">Shop</span>
               </span>
             </a>
           </div>
           
-          {/* Panier - Largeur fixe */}
+          {/* Panier */}
           <div className="flex-1 flex justify-end">
             <div className="relative cursor-pointer group" onClick={() => setIsCartOpen(true)}>
               <ShoppingBag 
                 size={22} 
-                className="text-neutral-900 group-hover:text-[#e21e26] transition-colors" 
+                className="text-neutral-900 group-hover:text-[#C5A059] transition-colors" 
               />
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-[#e21e26] text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                <span className="absolute -top-2 -right-2 bg-[#C5A059] text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
                   {cartCount}
                 </span>
               )}

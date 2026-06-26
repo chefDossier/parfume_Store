@@ -46,7 +46,7 @@ const MenuContent = ({ onClose, menuCategories }: { onClose: () => void, menuCat
           <span className="text-[10px] tracking-[0.3em] uppercase text-neutral-400 font-medium">exploration</span>
           <button 
             onClick={onClose} 
-            className="p-2 hover:rotate-90 transition-transform duration-300 text-neutral-500 hover:text-neutral-900"
+            className="p-2 hover:rotate-90 transition-transform duration-300 text-neutral-500 hover:text-[#C5A059]"
           >
             <X size={18} />
           </button>
@@ -56,14 +56,14 @@ const MenuContent = ({ onClose, menuCategories }: { onClose: () => void, menuCat
           {/* Option pour tout afficher */}
           <button 
             onClick={() => handleCategoryClick(null)}
-            className="w-full flex items-center justify-between py-2 border-b border-neutral-100/60 group text-neutral-800 hover:text-[#e21e26] transition-colors"
+            className="w-full flex items-center justify-between py-2 border-b border-neutral-100/60 group text-neutral-800 hover:text-[#C5A059] transition-colors"
           >
             <span className="text-sm font-medium tracking-[0.15em] uppercase font-serif">
               Tout
             </span>
             <ChevronRight 
               size={14} 
-              className="text-neutral-300 group-hover:text-[#e21e26] transition-transform group-hover:translate-x-1" 
+              className="text-neutral-300 group-hover:text-[#C5A059] transition-transform group-hover:translate-x-1" 
             />
           </button>
 
@@ -72,7 +72,7 @@ const MenuContent = ({ onClose, menuCategories }: { onClose: () => void, menuCat
             <button 
               key={i} 
               onClick={() => handleCategoryClick(cat.title)}
-              className="w-full flex items-center justify-between py-2 border-b border-neutral-100/60 group text-neutral-800 hover:text-[#e21e26] transition-colors"
+              className="w-full flex items-center justify-between py-2 border-b border-neutral-100/60 group text-neutral-800 hover:text-[#C5A059] transition-colors"
             >
               <span className="text-sm font-medium tracking-[0.15em] uppercase font-serif">
                 {cat.title}
@@ -83,7 +83,7 @@ const MenuContent = ({ onClose, menuCategories }: { onClose: () => void, menuCat
                 </span>
                 <ChevronRight 
                   size={14} 
-                  className="text-neutral-300 group-hover:text-[#e21e26] transition-transform group-hover:translate-x-1" 
+                  className="text-neutral-300 group-hover:text-[#C5A059] transition-transform group-hover:translate-x-1" 
                 />
               </div>
             </button>
@@ -97,9 +97,9 @@ const MenuContent = ({ onClose, menuCategories }: { onClose: () => void, menuCat
             router.push('/#concept');
             onClose();
           }} 
-          className="block text-xs tracking-[0.2em] uppercase text-neutral-500 hover:text-neutral-900"
+          className="block text-xs tracking-[0.2em] uppercase text-neutral-500 hover:text-[#C5A059]"
         >
-          notre philosophie
+          Our philosophy
         </button>
       </div>
     </>
@@ -126,7 +126,7 @@ const MenuDrawer = ({ isOpen, onClose, menuCategories }: any) => {
             transition={{ type: "tween", duration: 0.45, ease: [0.16, 1, 0.3, 1] }} 
             className="fixed top-0 bottom-0 left-0 w-full max-w-md bg-[#fcfbfa] shadow-2xl z-50 p-8 flex flex-col justify-between border-r border-neutral-100"
           >
-            <Suspense fallback={<div className="p-8 text-xs text-neutral-400">Chargement...</div>}>
+            <Suspense fallback={<div className="p-8 text-xs text-neutral-400">loading...</div>}>
               <MenuContent onClose={onClose} menuCategories={menuCategories} />
             </Suspense>
           </motion.div>
