@@ -1,41 +1,40 @@
 "use client";
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-/**
- * Sous-composant isolant l'utilisation de useSearchParams
- * pour éviter les erreurs de rendu statique (prerender) lors du build Vercel.
- */
+const MENU_STORAGE_KEY = "active_filter_category";
+
 const MenuContent = ({ onClose, menuCategories }: { onClose: () => void, menuCategories: any[] }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [activeCategory, setActiveCategory] = useState<string>("tout");
+
+  // Initialisation au montage du composant
+  useEffect(() => {
+    const saved = localStorage.getItem(MENU_STORAGE_KEY);
+    if (saved) setActiveCategory(saved);
+  }, []);
 
   const handleCategoryClick = (title: string | null) => {
-    // 1. Créer une nouvelle instance de recherche
     const params = new URLSearchParams(searchParams.toString());
+    const categoryKey = title ? title.toLowerCase().replace(/\s+/g, '-') : "tout";
     
+    // 1. Mettre à jour l'état local et le localStorage
+    setActiveCategory(categoryKey);
+    localStorage.setItem(MENU_STORAGE_KEY, categoryKey);
+
     if (title === null) {
-      // Nettoyer tous les filtres pour afficher tout
       params.delete('category');
       params.delete('q');
     } else {
-      // 2. Normalisation
-      const categoryValue = title.toLowerCase().replace(/\s+/g, '-');
-      
-      // 3. Mettre à jour la catégorie
-      params.set('category', categoryValue);
-      
-      // 4. IMPORTANT : Supprimer le paramètre 'q' (recherche) pour réinitialiser le filtre
+      params.set('category', categoryKey);
       params.delete('q');
     }
     
-    // 5. Utiliser replace avec scroll: false pour rester au même endroit
     router.replace(`/?${params.toString()}`, { scroll: false });
-    
-    // 6. Fermer le tiroir
     onClose();
   };
 
@@ -53,50 +52,53 @@ const MenuContent = ({ onClose, menuCategories }: { onClose: () => void, menuCat
         </div>
         
         <div className="space-y-6">
-          {/* Option pour tout afficher */}
+          {/* Option "Tout" */}
           <button 
             onClick={() => handleCategoryClick(null)}
-            className="w-full flex items-center justify-between py-2 border-b border-neutral-100/60 group text-neutral-800 hover:text-[#C5A059] transition-colors"
+            className={`w-full flex items-center justify-between py-2 border-b border-neutral-100/60 group transition-colors ${
+              activeCategory === "tout" ? "text-[#C5A059]" : "text-neutral-800 hover:text-[#C5A059]"
+            }`}
           >
             <span className="text-sm font-medium tracking-[0.15em] uppercase font-serif">
               Tout
             </span>
-            <ChevronRight 
-              size={14} 
-              className="text-neutral-300 group-hover:text-[#C5A059] transition-transform group-hover:translate-x-1" 
-            />
+            {activeCategory === "tout" && <div className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" />}
           </button>
 
           {/* Liste des catégories */}
-          {menuCategories.map((cat: any, i: number) => (
-            <button 
-              key={i} 
-              onClick={() => handleCategoryClick(cat.title)}
-              className="w-full flex items-center justify-between py-2 border-b border-neutral-100/60 group text-neutral-800 hover:text-[#C5A059] transition-colors"
-            >
-              <span className="text-sm font-medium tracking-[0.15em] uppercase font-serif">
-                {cat.title}
-              </span>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] text-neutral-400 font-mono font-light">
-                  ({cat.count})
+          {menuCategories.map((cat: any, i: number) => {
+            const categoryKey = cat.title.toLowerCase().replace(/\s+/g, '-');
+            const isActive = activeCategory === categoryKey;
+            
+            return (
+              <button 
+                key={i} 
+                onClick={() => handleCategoryClick(cat.title)}
+                className={`w-full flex items-center justify-between py-2 border-b border-neutral-100/60 group transition-colors ${
+                  isActive ? "text-[#C5A059]" : "text-neutral-800 hover:text-[#C5A059]"
+                }`}
+              >
+                <span className="text-sm font-medium tracking-[0.15em] uppercase font-serif">
+                  {cat.title}
                 </span>
-                <ChevronRight 
-                  size={14} 
-                  className="text-neutral-300 group-hover:text-[#C5A059] transition-transform group-hover:translate-x-1" 
-                />
-              </div>
-            </button>
-          ))}
+                <div className="flex items-center gap-2">
+                  <span className={`text-[10px] font-mono font-light ${isActive ? "text-[#C5A059]" : "text-neutral-400"}`}>
+                    ({cat.count})
+                  </span>
+                  <ChevronRight 
+                    size={14} 
+                    className={`transition-transform ${isActive ? "text-[#C5A059] translate-x-1" : "text-neutral-300 group-hover:text-[#C5A059] group-hover:translate-x-1"}`} 
+                  />
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
 
       <div className="border-t border-neutral-200/60 pt-6 space-y-4">
         <button 
-          onClick={() => {
-            router.push('/#concept');
-            onClose();
-          }} 
+          onClick={() => { router.push('/#concept'); onClose(); }} 
           className="block text-xs tracking-[0.2em] uppercase text-neutral-500 hover:text-[#C5A059]"
         >
           Our philosophy
@@ -118,7 +120,6 @@ const MenuDrawer = ({ isOpen, onClose, menuCategories }: any) => {
             onClick={onClose} 
             className="fixed inset-0 bg-black/20 backdrop-blur-xs z-50" 
           />
-          
           <motion.div 
             initial={{ x: "-100%" }} 
             animate={{ x: 0 }} 

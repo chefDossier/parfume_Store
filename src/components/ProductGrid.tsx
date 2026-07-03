@@ -18,7 +18,7 @@ const ProductContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   
-  const activeCategory = searchParams.get('category');
+  const activeCategory = searchParams.get('category'); // ex: "zara"
   const activeSearch = searchParams.get('q') || '';
   const [localSearch, setLocalSearch] = useState(activeSearch);
   
@@ -33,6 +33,12 @@ const ProductContent = () => {
     const matchesSearch = q ? (p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q)) : true;
     return matchesCategory && matchesSearch;
   });
+
+  // Construction du message dynamique
+  const categoryName = activeCategory ? activeCategory.replace('-', ' ') : "our collection";
+  const searchMessage = localSearch 
+    ? `Results for "${localSearch}" in ${categoryName}` 
+    : `Fragrances in ${categoryName}`;
 
   const handleAddToCart = (item: any) => {
     const rawCart = localStorage.getItem('cart');
@@ -72,10 +78,10 @@ const ProductContent = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
         <div className="space-y-3">
           <span className="text-[10px] uppercase tracking-[0.3em] text-[#C5A059] font-medium block">
-            {activeCategory ? activeCategory.replace('-', ' ') : "La Collection"}
+            {activeCategory ? activeCategory.replace('-', ' ') : "Discovery"}
           </span>
-          <h2 className="text-2xl md:text-4xl font-light text-neutral-900 font-serif tracking-tight">
-            {localSearch ? `Recherche : ${localSearch}` : "Nos Fragrances"}
+          <h2 className="text-2xl md:text-4xl font-light text-neutral-900 font-serif tracking-tight capitalize">
+            {searchMessage}
           </h2>
         </div>
 
@@ -83,7 +89,7 @@ const ProductContent = () => {
           <Search size={16} className="absolute left-3 top-3.5 text-neutral-400" />
           <input
             type="text"
-            placeholder="Nom, marque..."
+            placeholder="Search by name or brand..."
             value={localSearch}
             onChange={(e) => handleSearchChange(e.target.value)}
             className="w-full bg-white border border-neutral-200 py-3 pl-10 pr-4 text-xs tracking-widest uppercase outline-none focus:border-[#C5A059] transition-all rounded-lg text-neutral-800 placeholder-neutral-300"
@@ -108,7 +114,7 @@ const ProductContent = () => {
                 
                 <div className="absolute inset-0 bg-neutral-950/20 md:opacity-0 md:group-hover:opacity-100 transition-opacity z-20 flex flex-col justify-end p-4 gap-2">
                   <button onClick={() => handleAddToCart(item)} className="w-full bg-white text-neutral-950 py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-2">
-                    <ShoppingBag size={14} /> Ajouter
+                    <ShoppingBag size={14} /> Add to Cart
                   </button>
                   <button onClick={() => handleWhatsAppRedirect(`Bonjour, je suis intéressé par le parfum : ${item.matched_product.name}`)} className="w-full bg-[#25D366] text-white py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-2">
                     <MessageCircle size={14} /> WhatsApp
@@ -119,15 +125,18 @@ const ProductContent = () => {
               <div className="space-y-1 px-1">
                 <h3 className="text-xs font-bold tracking-[0.1em] uppercase text-neutral-800">{item.matched_product.name}</h3>
                 <p className="text-[11px] text-neutral-400 font-light italic">{item.matched_product.brand} • {item.matched_product.category}</p>
-                <span className="text-xs font-medium text-neutral-900">{item.matched_product.price ? `${item.matched_product.price.toLocaleString()} FCFA` : "Sur demande"}</span>
+                <span className="text-xs font-medium text-neutral-900">{item.matched_product.price ? `${item.matched_product.price.toLocaleString()} FCFA` : "On request"}</span>
               </div>
             </motion.div>
           ))
         ) : (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="col-span-full py-20 text-center">
-            <p className="text-neutral-500 mb-6 text-sm">Il se peut que ce produit ne soit pas disponible actuellement. Contactez-nous pour une demande personnalisée.</p>
+            <p className="text-neutral-500 mb-6 text-sm max-w-lg mx-auto">
+              No fragrances match your search in <strong>{categoryName}</strong>. Please check the spelling or try a different keyword. 
+              Otherwise, this product may not be available right now. Contact us for a custom request.
+            </p>
             <button onClick={() => handleWhatsAppRedirect()} className="inline-flex items-center gap-2 bg-neutral-900 text-white px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] transition-colors">
-              Nous contacter sur WhatsApp <ArrowRight size={14} />
+              Contact Us on WhatsApp <ArrowRight size={14} />
             </button>
           </motion.div>
         )}
@@ -140,7 +149,7 @@ const ProductGrid = () => {
   return (
     <section id="collections" className="w-full bg-[#fcfbfa] py-24 px-6 md:px-12 border-t border-neutral-100">
       <div className="max-w-7xl mx-auto">
-        <Suspense fallback={<div className="py-20 text-center text-sm text-neutral-400">Chargement des collections...</div>}>
+        <Suspense fallback={<div className="py-20 text-center text-sm text-neutral-400">Loading collections...</div>}>
           <ProductContent />
         </Suspense>
       </div>
