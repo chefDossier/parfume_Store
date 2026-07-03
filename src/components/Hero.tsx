@@ -7,17 +7,17 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 const specialEditions = [
   {
     id: 1,
-    text: "Édition Spéciale : Ambre Impérial - Flacon d'Or Numéroté",
+    text: "Special Edition: Imperial Amber - Numbered Gold Bottle",
     image: "/parfume/black_per.jpg"
   },
   {
     id: 2,
-    text: "Collection Privée : Nuit Nomade - Extrait Absolu de Cuir",
+    text: "Private Collection: Nomadic Night - Absolute Leather Extract",
     image: "/parfume/black_per.jpg"
   },
   {
     id: 3,
-    text: "Série Rare : Sillage d'Or - Infusion Exclusive 2026",
+    text: "Rare Series: Golden Sillage - Exclusive 2026 Infusion",
     image: "/parfume/black_per.jpg"
   }
 ];
@@ -65,7 +65,7 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
         >
-          {/* Bandeau Édition Spéciale */}
+          {/* Special Edition Banner */}
           <motion.div 
             variants={fadeInUp}
             className="relative w-full max-w-md h-20 rounded-full overflow-hidden border border-[#C5A059]/30 shadow-md flex items-center px-6"
@@ -75,7 +75,7 @@ const Hero = () => {
                 <motion.img
                   key={`bg-${currentIndex}`}
                   src={specialEditions[currentIndex].image}
-                  alt="Atmosphère Parfum"
+                  alt="Perfume Atmosphere"
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
@@ -109,15 +109,15 @@ const Hero = () => {
             variants={fadeInUp}
             className="text-4xl md:text-6xl xl:text-7xl font-light text-neutral-900 tracking-tight leading-[1.1] font-serif"
           >
-            L'empreinte d'une <br />
-            <span className="italic font-normal text-neutral-800">émotion</span> invisible.
+            The imprint of an <br />
+            <span className="italic font-normal text-neutral-800">invisible</span> emotion.
           </motion.h1>
 
           <motion.p 
             variants={fadeInUp}
             className="text-sm md:text-base text-neutral-500 leading-relaxed max-w-xl font-light"
           >
-            Plus qu’un sillage, une architecture sensorielle. sidess Luxury Shop façonne des extraits de parfum rares où les essences précieuses entrent en résonance avec votre histoire.
+            More than just a scent, a sensory architecture. sidess Luxury Shop crafts rare perfume extracts where precious essences resonate with your own unique story.
           </motion.p>
 
           <motion.div 
@@ -128,7 +128,7 @@ const Hero = () => {
               href="#collections"
               className="group relative px-8 py-4 bg-neutral-950 text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] overflow-hidden flex items-center gap-3 shadow-lg hover:bg-[#C5A059] transition-colors duration-500"
             >
-              <span>Découvrir l'univers</span>
+              <span>Discover the universe</span>
               <ArrowRight size={14} className="transform group-hover:translate-x-1 transition-transform duration-300" />
             </a>
 
@@ -136,12 +136,12 @@ const Hero = () => {
               href="#diagnostic"
               className="px-8 py-4 bg-[#C5A059] text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:bg-[#a38249] transition-all duration-300 text-center border-0"
             >
-              Diagnostic olfactif
+              Olfactory Diagnostic
             </a>
           </motion.div>
         </motion.div>
 
-        {/* Bloc Droite */}
+        {/* Right Block */}
         <motion.div 
           className="lg:col-span-5 relative flex justify-center items-center lg:justify-end mt-12 lg:mt-0"
           initial={{ opacity: 0, scale: 0.95, x: 20 }}
@@ -159,7 +159,7 @@ const Hero = () => {
           >
             <img 
               src="/parfume/black_per.jpg" 
-              alt="Flacon d'exception sidess Luxury Shop" 
+              alt="sidess Luxury Shop exception bottle" 
               className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000 select-none"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/20 via-transparent to-neutral-950/10 pointer-events-none" />
@@ -167,10 +167,10 @@ const Hero = () => {
 
           <div className="absolute bottom-10 left-4 sm:bottom-12 sm:-left-8 lg:-left-12 lg:bottom-24 z-20 bg-neutral-950/80 sm:bg-white/80 backdrop-blur-md border border-neutral-800/10 sm:border-neutral-100 py-3.5 px-5 rounded-xl shadow-xl max-w-[220px]">
             <p className="text-[9px] uppercase tracking-[0.22em] text-neutral-400 sm:text-neutral-400 font-semibold mb-0.5">
-              Note de tête
+              Top Note
             </p>
             <p className="text-xs font-serif text-white sm:text-neutral-900 leading-tight">
-              Bergamote & Écorce d'Ambre
+              Bergamot & Amber Bark
             </p>
           </div>
         </motion.div>
