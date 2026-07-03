@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Compass } from 'lucide-react';
-import { SiInstagram, SiFacebook, SiPinterest, SiSnapchat, SiTiktok } from 'react-icons/si';
+import { SiInstagram, SiSnapchat, SiTiktok } from 'react-icons/si';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -23,7 +23,6 @@ const Footer = () => {
   };
 
   return (
-    // Background dorer appliqué à la section newsletter et aux éléments d'accentuation
     <footer className="w-full bg-amber-50 text-neutral-900 pt-0 pb-12 border-t border-neutral-200/60 relative overflow-hidden font-sans">
       
       <div className="absolute inset-y-0 top-0 h-full w-full pointer-events-none flex justify-between max-w-7xl mx-auto px-12 opacity-20">
@@ -144,14 +143,17 @@ const Footer = () => {
 
           <div className="flex items-center gap-3 md:gap-4 order-1 md:order-2">
             {[
-              { icon: SiInstagram, color: "hover:text-pink-600" },
-              { icon: SiSnapchat, color: "hover:text-yellow-500" },
-              { icon: SiTiktok, color: "hover:text-black" },
-              { icon: SiFacebook, color: "hover:text-blue-600" },
-              { icon: SiPinterest, color: "hover:text-red-600" },
-              { icon: Compass, color: "hover:text-[#C5A059]" }
+              { icon: SiInstagram, color: "hover:text-pink-600", url: " https://www.instagram.com/sidessluxuryshop2/reels/?__d=11" },
+              { icon: SiTiktok, color: "hover:text-black", url: " https://www.tiktok.com/@sidessluxuryshopbuea/video/7602272307423333652" },
+              { icon: SiSnapchat, color: "hover:text-yellow-500", url: "https://www.snapchat.com/@sidess_luxury/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYZHZ3bHp2cG55AZzokefqAZzojPCWAAAAAQ" }
             ].map((social, i) => (
-              <a key={i} href="#" className={`w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 ${social.color} hover:border-[#C5A059]/30 hover:bg-[#fdfaf5] transition-all duration-300`}>
+              <a 
+                key={i} 
+                href={social.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className={`w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 ${social.color} hover:border-[#C5A059]/30 hover:bg-[#fdfaf5] transition-all duration-300`}
+              >
                 <social.icon size={12} />
               </a>
             ))}
