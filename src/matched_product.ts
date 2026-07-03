@@ -522,28 +522,7 @@ export default [
     },
     "status": "MATCHED"
   },
-  {
-    "image_name": "IMG_1450_nc5hac",
-    "matched_product": {
-      "id": "P-048",
-      "name": "Ra'ed",
-      "brand": "Lattafa",
-      "price": 24000,
-      "category": "arabic"
-    },
-    "status": "MATCHED"
-  },
-  {
-    "image_name": "IMG_1513_veuvii",
-    "matched_product": {
-      "id": "P-049",
-      "name": "Zara Tobacco Collection",
-      "brand": "Zara",
-      "price": null,
-      "category": "zara"
-    },
-    "status": "UNMATCHED"
-  },
+  
   {
     "image_name": "NEBRAS_LATTAFA_25_000_ffa3ff",
     "matched_product": {
