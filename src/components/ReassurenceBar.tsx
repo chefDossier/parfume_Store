@@ -8,26 +8,26 @@ const features = [
   {
     id: 1,
     icon: MessageSquare,
-    title: "Commande via WhatsApp",
-    description: "Paiement sécurisé & suivi direct"
+    title: "Order via WhatsApp",
+    description: "Secure payment & direct tracking"
   },
   {
     id: 2,
     icon: Truck,
-    title: "Livraison Prestigieuse",
-    description: "Offerte à domicile avec soin"
+    title: "Premium Delivery",
+    description: "Complimentary home delivery with care"
   },
   {
     id: 3,
     icon: ShieldCheck,
-    title: "Sillage d'Exception",
-    description: "Extraits 100% authentiques"
+    title: "Exceptional Sillage",
+    description: "100% authentic extracts"
   },
   {
     id: 4,
     icon: Leaf,
-    title: "Maison Responsable",
-    description: "Fournisseur certifié & flacon durable"
+    title: "Responsible House",
+    description: "Certified supplier & sustainable bottle"
   }
 ];
 
