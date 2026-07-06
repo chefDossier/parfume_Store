@@ -59,9 +59,9 @@ const DiagnosticQuiz = () => {
   };
 
   const handleDiscoverClick = (result: { name: string; family: string }) => {
-    const phoneNumber = "237670000000";
+    const phoneNumber = "237670738850"; // Replace with your actual WhatsApp number
     const message = encodeURIComponent(
-      `Bonjour, j'ai effectué le diagnostic Sidess Luxury et j'aimerais obtenir plus d'informations sur ma recommandation : ${result.name} (${result.family})`
+      `Hello, I have completed the Sidess Luxury diagnostic and I would like to get more information about my recommendation: ${result.name} (${result.family})`
     );
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
