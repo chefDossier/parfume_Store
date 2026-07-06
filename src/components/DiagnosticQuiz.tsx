@@ -58,6 +58,14 @@ const DiagnosticQuiz = () => {
     setCurrentStep(0);
   };
 
+  const handleDiscoverClick = (result: { name: string; family: string }) => {
+    const phoneNumber = "237670000000";
+    const message = encodeURIComponent(
+      `Bonjour, j'ai effectué le diagnostic Sidess Luxury et j'aimerais obtenir plus d'informations sur ma recommandation : ${result.name} (${result.family})`
+    );
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+  };
+
   const result = recommendations[answers[1]] || recommendations["boise"];
 
   const stageVariants: Variants = {
@@ -238,12 +246,12 @@ const DiagnosticQuiz = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full">
-                  <a
-                    href="#collections"
+                  <button
+                    onClick={() => handleDiscoverClick(result)}
                     className="w-full sm:w-auto px-8 py-4 bg-neutral-950 text-white rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:bg-[#C5A059] transition-colors duration-500 text-center"
                   >
                     Discover the scent
-                  </a>
+                  </button>
                   
                   <button
                     onClick={handleRestart}
