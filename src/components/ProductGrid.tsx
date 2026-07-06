@@ -62,7 +62,7 @@ const ProductContent = () => {
   };
 
   const handleWhatsAppRedirect = (customMessage?: string) => {
-    const message = customMessage || "Bonjour, je cherche une fragrance spécifique mais je ne l'ai pas trouvée dans votre catalogue. Pouvez-vous m'aider ?";
+    const message = customMessage || "Hello, I am looking for a specific fragrance but I haven't found it in your catalog. Can you help me?";
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
