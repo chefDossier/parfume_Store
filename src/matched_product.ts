@@ -276,5 +276,170 @@ export default [
       "category": "arabic"
     },
     "status": "MATCHED"
+  },
+  {
+    "image_name": "VANILLA_ROMANCE_11000_lw2n9p",
+    "matched_product": {
+      "id": "P-116",
+      "name": "Vanilla Romance",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "WARN_MUSK_11000_t0hfln",
+    "matched_product": {
+      "id": "P-117",
+      "name": "Warm Musk",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "WARM_VANILLA_SUGAR_11000_h1zrrr",
+    "matched_product": {
+      "id": "P-118",
+      "name": "Warm Vanilla Sugar",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "YOUARE_THE_ONE_11000_burnsq",
+    "matched_product": {
+      "id": "P-119",
+      "name": "You're the One",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "RAPUNZEL_11000_jp2t83",
+    "matched_product": {
+      "id": "P-120",
+      "name": "Rapunzel",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "SWEETEST_SONG_11000_qmicxe",
+    "matched_product": {
+      "id": "P-121",
+      "name": "Sweetest Song",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "TOUCH_OF_GOLD_11000_qec9gt",
+    "matched_product": {
+      "id": "P-122",
+      "name": "Touch of Gold",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "IN_THOUSAND_WISHES_11000_yiku4l",
+    "matched_product": {
+      "id": "P-123",
+      "name": "A Thousand Wishes",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "JAPANESE_CHERRY_11000_zqbcgu",
+    "matched_product": {
+      "id": "P-124",
+      "name": "Japanese Cherry Blossom",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "PINK_OBSESSED_11000_z0qlj0",
+    "matched_product": {
+      "id": "P-125",
+      "name": "Pink Obsessed",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "LOVE_UNLEASHED_11000_kynblm",
+    "matched_product": {
+      "id": "P-126",
+      "name": "Love Unleashed",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "CHAMPAGNE_11000_na3lon",
+    "matched_product": {
+      "id": "P-127",
+      "name": "Champagne Toast",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "COVERED_IN_ROSES_11000_exxukh",
+    "matched_product": {
+      "id": "P-128",
+      "name": "Covered in Roses",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "IN_THE_NIGHT_xpkd72",
+    "matched_product": {
+      "id": "P-129",
+      "name": "Into the Night",
+      "brand": "Bath & Body Works",
+      "price": null,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
+  },
+  {
+    "image_name": "IN_THE_STARS_11000_dlvzbs",
+    "matched_product": {
+      "id": "P-130",
+      "name": "In the Stars",
+      "brand": "Bath & Body Works",
+      "price": 11000,
+      "category": "body mist"
+    },
+    "status": "MATCHED"
   }
 ]
